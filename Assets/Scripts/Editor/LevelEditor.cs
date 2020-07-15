@@ -12,6 +12,8 @@ public class LevelEditor : UnityEditor.Editor
     {
         serializedObject.Update();
 
+        // base.OnInspectorGUI();
+        
         var levelCreator = (LevelCreator) target;
 
         EditorGUILayout.HelpBox("To start level creation press \"Create New Level\" button. OR\n" +
