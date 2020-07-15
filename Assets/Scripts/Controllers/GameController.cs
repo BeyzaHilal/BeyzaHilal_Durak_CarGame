@@ -41,7 +41,8 @@ public class GameController : MonoBehaviour
     private Level ReadCurrentLevel()
     {
         Debug.Log("Reading Level...");
-        var level = (Level) AssetDatabase.LoadAssetAtPath($"{PrefKeys.AssetsPath}Level_{currentLevelNumber}.asset", typeof(Level));
+        // var level = (Level) AssetDatabase.LoadAssetAtPath($"{PrefKeys.AssetsPath}Level_{currentLevelNumber}.asset", typeof(Level));
+        var level = Resources.Load<Level>($"Levels/Level_{currentLevelNumber}");
         return level;
     }
     

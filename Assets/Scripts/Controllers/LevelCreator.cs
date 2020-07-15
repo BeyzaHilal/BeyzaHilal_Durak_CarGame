@@ -52,7 +52,9 @@ public class LevelCreator : MonoBehaviour
         {
             int tempNo = _existsLevelNumber + 1;
 
-            if (AssetDatabase.LoadAssetAtPath($"{PrefKeys.AssetsPath}Level_{tempNo}.asset", typeof(Level)) != null) //Level already exists.
+#if UNITY_EDITOR
+            // if (AssetDatabase.LoadAssetAtPath($"{PrefKeys.AssetsPath}Level_{tempNo}.asset", typeof(Level)) != null) //Level already exists.
+            if (Resources.Load<Level>($"Levels/Level_{tempNo}.asset") != null)    //Level already exists.
             {
                 _existsLevelNumber += 1;
                 attemptNumber =+ 1;
@@ -68,6 +70,7 @@ public class LevelCreator : MonoBehaviour
                 Debug.LogError("An error occurred creating a level, please contact a developer.");
                 return 0;
             }
+#endif
         }
     }
 
@@ -85,12 +88,14 @@ public class LevelCreator : MonoBehaviour
             obstaclesGameObjects.ForEach(go =>
                 creatingLevel.obstacles.Add(new PointData(go.transform.position, go.transform.rotation)));
 
+#if UNITY_EDITOR
             AssetDatabase.CreateAsset(creatingLevel, $"{PrefKeys.AssetsPath}/{creatingLevel.name}.asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             PlayerPrefs.SetInt(PrefKeys.ExistsLevelNumber, creatingLevel.levelNumber);
             Debug.Log($"Level saved! File name: {creatingLevel.name} ");
             creatingLevel = null;
+#endif
         }
     }
 
@@ -106,13 +111,14 @@ public class LevelCreator : MonoBehaviour
 
             obstaclesGameObjects.ForEach(go =>
                 creatingLevel.obstacles.Add(new PointData(go.transform.position, go.transform.rotation)));
-
+#if UNITY_EDITOR
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log($"Level updated! File name: {creatingLevel.name} ");
 
             creatingLevel = null;
             isEditingLevel = false;
+#endif
         }
     }
 

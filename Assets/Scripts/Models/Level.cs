@@ -7,7 +7,7 @@ public static class PrefKeys
 {
     public const string ExistsLevelNumber = "ExistsLevelNumber";
     public const string PlayerPrefUnlockLevel = "UnlockLevel";
-    public const string AssetsPath = "Assets/Levels/";
+    public const string AssetsPath = "Assets/Resources/Levels/";
 
 }
 
